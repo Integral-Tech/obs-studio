@@ -234,8 +234,8 @@ static void fill_out_plugins(obs_property_t *list)
 	QStringList vst_list;
 
 	// Read all plugins into a list...
-	for (int a = 0; a < dir_list.size(); ++a) {
-		QDir search_dir(dir_list[a]);
+	for (const auto &dir : dir_list) {
+		QDir search_dir(dir);
 		search_dir.setNameFilters(filters);
 		QDirIterator it(search_dir, QDirIterator::Subdirectories | QDirIterator::FollowSymlinks);
 		while (it.hasNext()) {
@@ -261,8 +261,7 @@ static void fill_out_plugins(obs_property_t *list)
 
 	// Now add said list to the plug-in list of OBS
 	obs_property_list_add_string(list, "{Please select a plug-in}", nullptr);
-	for (int b = 0; b < vst_list.size(); ++b) {
-		QString vst_sorted = vst_list[b];
+	for (const auto &vst_sorted : vst_list) {
 		obs_property_list_add_string(list, vst_sorted.left(vst_sorted.indexOf('=')).toStdString().c_str(),
 					     vst_sorted.mid(vst_sorted.indexOf('=') + 1).toStdString().c_str());
 	}

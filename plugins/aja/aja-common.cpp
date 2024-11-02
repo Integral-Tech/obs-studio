@@ -321,11 +321,9 @@ void GetSortedVideoFormats(NTV2DeviceID id, const VideoStandardList &standards, 
 		}
 	}
 
-	for (size_t v = 0; v < standards.size(); v++) {
-		NTV2Standard standard = standards.at(v);
+	for (const auto &standard : standards) {
 		if (videoFormatMap.count(standard)) {
-			for (size_t i = 0; i < videoFormatMap.at(standard).size(); i++) {
-				NTV2VideoFormat vf = videoFormatMap.at(standard).at(i);
+			for (const auto &vf : videoFormatMap.at(standard)) {
 				videoFormats.push_back(vf);
 			}
 		}

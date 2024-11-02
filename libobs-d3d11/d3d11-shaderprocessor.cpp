@@ -91,10 +91,9 @@ static void AddInputLayoutVar(shader_var *var, vector<D3D11_INPUT_ELEMENT_DESC> 
 static inline bool SetSlot(vector<D3D11_INPUT_ELEMENT_DESC> &layout, const char *name, uint32_t index,
 			   uint32_t &slotIdx)
 {
-	for (size_t i = 0; i < layout.size(); i++) {
-		D3D11_INPUT_ELEMENT_DESC &input = layout[i];
+	for (auto &input : layout) {
 		if (input.SemanticIndex == index && strcmpi(input.SemanticName, name) == 0) {
-			layout[i].InputSlot = slotIdx++;
+			input.InputSlot = slotIdx++;
 			return true;
 		}
 	}

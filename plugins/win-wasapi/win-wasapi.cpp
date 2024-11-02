@@ -1467,8 +1467,7 @@ static obs_properties_t *GetWASAPIPropertiesInput(void *)
 	if (devices.size())
 		obs_property_list_add_string(device_prop, obs_module_text("Default"), "default");
 
-	for (size_t i = 0; i < devices.size(); i++) {
-		AudioDeviceInfo &device = devices[i];
+	for (const auto &device : devices) {
 		obs_property_list_add_string(device_prop, device.name.c_str(), device.id.c_str());
 	}
 
@@ -1490,10 +1489,8 @@ static obs_properties_t *GetWASAPIPropertiesDeviceOutput(void *)
 	if (devices.size())
 		obs_property_list_add_string(device_prop, obs_module_text("Default"), "default");
 
-	for (size_t i = 0; i < devices.size(); i++) {
-		AudioDeviceInfo &device = devices[i];
+	for (const auto &device : devices)
 		obs_property_list_add_string(device_prop, device.name.c_str(), device.id.c_str());
-	}
 
 	obs_properties_add_bool(props, OPT_USE_DEVICE_TIMING, obs_module_text("UseDeviceTiming"));
 

@@ -30,8 +30,7 @@
 
 void gs_vertex_shader::GetBuffersExpected(const vector<D3D11_INPUT_ELEMENT_DESC> &inputs)
 {
-	for (size_t i = 0; i < inputs.size(); i++) {
-		const D3D11_INPUT_ELEMENT_DESC &input = inputs[i];
+	for (const auto &input : inputs) {
 		if (strcmp(input.SemanticName, "NORMAL") == 0)
 			hasNormals = true;
 		else if (strcmp(input.SemanticName, "TANGENT") == 0)
@@ -132,8 +131,7 @@ gs_pixel_shader::gs_pixel_shader(gs_device_t *device, const char *file, const ch
 
 void gs_shader::BuildConstantBuffer()
 {
-	for (size_t i = 0; i < params.size(); i++) {
-		gs_shader_param &param = params[i];
+	for (auto &param : params) {
 		size_t size = 0;
 
 		switch (param.type) {
@@ -194,8 +192,8 @@ void gs_shader::BuildConstantBuffer()
 			throw HRError("Failed to create constant buffer", hr);
 	}
 
-	for (size_t i = 0; i < params.size(); i++)
-		gs_shader_set_default(&params[i]);
+	for (auto &param : params)
+		gs_shader_set_default(&param);
 }
 
 static uint64_t fnv1a_hash(const char *str, size_t len)
@@ -347,8 +345,8 @@ void gs_shader::UploadParams()
 
 	constData.reserve(constantSize);
 
-	for (size_t i = 0; i < params.size(); i++)
-		UpdateParam(constData, params[i], upload);
+	for (auto &param : params)
+		UpdateParam(constData, param, upload);
 
 	if (constData.size() != constantSize)
 		throw "Invalid constant data size given to shader";
@@ -385,11 +383,9 @@ gs_sparam_t *gs_shader_get_param_by_idx(gs_shader_t *shader, uint32_t param)
 
 gs_sparam_t *gs_shader_get_param_by_name(gs_shader_t *shader, const char *name)
 {
-	for (size_t i = 0; i < shader->params.size(); i++) {
-		gs_shader_param &param = shader->params[i];
+	for (auto &param : shader->params)
 		if (strcmp(param.name.c_str(), name) == 0)
 			return &param;
-	}
 
 	return NULL;
 }

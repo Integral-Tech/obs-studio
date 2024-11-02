@@ -344,8 +344,7 @@ static void get_tex_from_handle(amf_texencode *enc, uint32_t handle, IDXGIKeyedM
 	ComPtr<ID3D11Texture2D> tex;
 	HRESULT hr;
 
-	for (size_t i = 0; i < enc->input_textures.size(); i++) {
-		struct handle_tex &ht = enc->input_textures[i];
+	for (auto &ht : enc->input_textures) {
 		if (ht.handle == handle) {
 			ht.km.CopyTo(km_out);
 			ht.tex.CopyTo(tex_out);

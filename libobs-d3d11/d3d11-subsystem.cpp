@@ -767,8 +767,7 @@ void gs_device::UpdateZStencilState()
 	if (!zstencilStateChanged)
 		return;
 
-	for (size_t i = 0; i < zstencilStates.size(); i++) {
-		SavedZStencilState &s = zstencilStates[i];
+	for (const auto &s : zstencilStates) {
 		if (memcmp(&s, &zstencilState, sizeof(zstencilState)) == 0) {
 			state = s.state;
 			break;
@@ -793,8 +792,7 @@ void gs_device::UpdateRasterState()
 	if (!rasterStateChanged)
 		return;
 
-	for (size_t i = 0; i < rasterStates.size(); i++) {
-		SavedRasterState &s = rasterStates[i];
+	for (const auto &s : rasterStates) {
 		if (memcmp(&s, &rasterState, sizeof(rasterState)) == 0) {
 			state = s.state;
 			break;
@@ -819,8 +817,7 @@ void gs_device::UpdateBlendState()
 	if (!blendStateChanged)
 		return;
 
-	for (size_t i = 0; i < blendStates.size(); i++) {
-		SavedBlendState &s = blendStates[i];
+	for (const auto &s : blendStates) {
 		if (memcmp(&s, &blendState, sizeof(blendState)) == 0) {
 			state = s.state;
 			break;
